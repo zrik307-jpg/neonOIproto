@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+
+<html lang="ru">
+<head>
+
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1,user-scalable=no,viewport-fit=cover,maximum-scale=1" name="viewport"/>
+<meta content="#050608" name="theme-color"/>
+<meta content="dark" name="color-scheme"/>
+<meta content="telephone=no" name="format-detection"/>
+<link href="data:," rel="icon"/>
+<meta content="yes" name="apple-mobile-web-app-capable"/>
+<meta content="yes" name="mobile-web-app-capable"/>
+<meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"/>
+<title>Neon.io — by NIRAG AI STUDIO</title>
+<link rel="stylesheet" href="css/style.css">
+<script id="neon-storage-batch">(function(){var P=Storage.prototype,set=P.setItem,get=P.getItem,rem=P.removeItem,pend=Object.create(null),has=Object.prototype.hasOwnProperty,t=0;function inGame(){return!!(document.body&&document.body.classList.contains("in-game"))}function flush(){clearTimeout(t),t=0;for(var k in pend){var v=pend[k];delete pend[k];try{set.call(localStorage,k,v)}catch{}}}function tick(){t=0,inGame()?t=setTimeout(tick,1e3):flush()}P.setItem=function(k,v){if(this===localStorage&&inGame()){pend[k]=String(v),t||(t=setTimeout(tick,1e3));return}this===localStorage&&has.call(pend,k)&&delete pend[k];try{return set.call(this,k,v)}catch(e){if(this!==localStorage)throw e}},P.getItem=function(k){return this===localStorage&&has.call(pend,k)?pend[k]:get.call(this,k)},P.removeItem=function(k){return this===localStorage&&has.call(pend,k)&&delete pend[k],rem.call(this,k)},addEventListener("pagehide",flush),document.addEventListener("visibilitychange",function(){document.hidden&&flush()})})();
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="neon-performance-pass" content="v37: cache rasterized territory per actor; preserve existing contour geometry and visual styling"><meta name="neon-build" content="v47 safe renderer rollback: removed unverified dirty-rectangle compositor; based on v45"></head>
+<body data-lang="ru" data-neon="on" data-theme="liquid-azure">
+<div id="loader">
+<div class="ldr-in">
+<div class="ldr-logo">NEON.IO</div><div aria-hidden="true" class="ld ld-ring ld-spin" style="font-size:42px;margin:10px auto"></div>
+<div class="ldr-by">by <span>NIRAG AI STUDIO</span></div>
+<div class="ldr-bar"><div class="ldr-fill" id="loader-fill"></div></div>
+<div class="ldr-tip" id="loader-tip">Инициализация...</div>
+</div>
+</div>
+<div aria-hidden="true" id="view-transition-cover"></div>
+<div id="hearts"></div>
+<canvas height="1" id="arena" width="1"></canvas>
+<header>
+<a class="brand" href="#" id="brand">NEON<span>.IO</span></a>
+<div class="tools">
+<button class="icon-btn active" id="sound-btn" title="Звук">🔊</button>
+<button class="icon-btn active" id="neon-btn" title="Неон">✨</button>
+<button class="icon-btn" id="records" title="Рекорды">★</button>
+
+<button class="icon-btn hidden" id="pause" title="Пауза">Ⅱ</button>
+</div>
+<div class="top-fps" id="fps-counter">60 FPS</div>
+</header>
+<main class="overlay" id="menu">
+<section class="menu-panel">
+<h1>NEON.IO</h1>
+<p class="tagline" data-i18n="tagline">Захвати галактику</p>
+<p class="studio">by <b>NIRAG AI STUDIO</b></p>
+<div class="preview"><div class="cube" id="preview-cube"></div></div>
+<input autocomplete="off" id="nickname" maxlength="16" placeholder="Твой позывной" spellcheck="false" value="Пилот"/>
+<button class="primary" data-i18n="play" id="start-btn">В БОЙ ➜</button>
+<div class="mode-tabs">
+<button class="mode-tab active" data-mode="classic">🎯 Классика</button>
+<button class="mode-tab" data-mode="survival">⏳ Выживание</button>
+<button class="mode-tab" data-mode="ai">🤖 ИИ</button>
+</div>
+<div class="customize">
+<button id="skins-btn">🚀 Корабли</button>
+<button id="trails-btn">✨ Следы</button>
+<button id="themes-btn">🎨 Темы</button>
+<button id="achievements-btn">🏆 Достижения</button>
+<button id="levels-btn">📊 Уровни</button>
+<button id="profile-btn">👤 Профиль</button>
+<button id="settings-btn">⚙ Настройки</button>
+<button class="wide" id="wallpapers-menu-btn">🎨 Обои</button>
+<button class="wide" id="daily-btn">📅 Ежедневный вызов</button>
+<button class="wide" id="multiplayer-btn">📡 Игра по WiFi</button>
+</div>
+<div class="pts-badge">💎 <span id="points-display">0</span> очков</div>
+<div class="rank-badge">🏅 <span id="rank-display">Новичок</span></div>
+<div class="level-badge">Lv <span id="level-display">1</span>/2000</div>
+<div class="difficulty">
+<label for="bots-slider">Боты</label>
+<span class="bots-badge" id="bots-val">3</span>
+<input id="bots-slider" max="10" min="1" step="1" style="width:120px" type="range" value="3"/>
+</div>
+<div class="difficulty">
+<label for="mx-select">Мутатор</label>
+<select id="mx-select"><option value="none">Нет</option><option value="rand">Случайный</option><option value="crown">👑 Тяжёлая корона</option><option value="dark">🌑 Слепая зона</option><option value="rift">🌀 Разломы</option><option value="shrink">🔥 Сжатие арены</option><option value="speed">⚡ Овердрайв</option></select>
+</div>
+<div class="difficulty">
+<label for="difficulty">Сложность</label>
+<select id="difficulty">
+<option value="easy">Спокойные</option>
+<option selected="" value="normal">Обычные</option>
+<option value="hard">Агрессивные</option>
+</select>
+</div>
+</section>
+</main>
+<div class="hidden" id="hud">
+<div class="score">
+<span>ТВОЯ ТЕРРИТОРИЯ</span>
+<strong id="percentage">0.00<small>%</small></strong>
+<div class="score-track"><i id="score-fill"></i></div>
+<div class="score-details">
+<span id="kills">✦ 0</span>
+<span id="timer">00:00</span>
+</div>
+</div>
+<aside class="leaderboard">
+<h3><span data-i18n="leaders">ЛИДЕРЫ</span> <span>♛</span></h3>
+<ol id="leaders"></ol>
+</aside>
+<div id="combo-badge"></div>
+<div id="capture-toast"></div>
+<div id="achievement-toast"></div>
+<div id="ult-badge"></div>
+<div class="game-hint">Замкни след — цель 40% карты</div>
+<div class="hidden" id="abilities">
+<button class="ability" id="ab-shield"><span class="ab-icon">🛡</span><span class="ab-cd" id="cd-shield"></span><span class="ab-count" id="cnt-shield">3</span></button>
+<button class="ability" id="ab-boost"><span class="ab-icon">⚡</span><span class="ab-cd" id="cd-boost"></span><span class="ab-count" id="cnt-boost">3</span></button>
+<button class="ability" id="ab-teleport"><span class="ab-icon">✨</span><span class="ab-cd" id="cd-teleport"></span><span class="ab-count" id="cnt-teleport">2</span></button>
+</div>
+</div>
+<footer id="footer">
+<span data-i18n="best" id="best-label">Лучший: 0.00%</span>
+<button data-i18n="help" id="help-btn">Как играть ?</button>
+<button id="devs-btn">👨‍💻 NIRAG</button>
+</footer>
+<div class="modal hidden" id="modal">
+<section class="dialog">
+<button class="close" id="close-modal">×</button>
+<h2 id="modal-title"></h2>
+<div id="modal-content"></div>
+</section>
+</div>
+<script>(function(g){g.__neonYSDK=null,g.__neonYSDKReady=!1,g.__neonYSDKInit=function(){!g.YaGames||g.__neonYSDKInitStarted||(g.__neonYSDKInitStarted=!0,g.YaGames.init().then(function(ysdk){g.__neonYSDK=ysdk,g.__neonYSDKReady=!0,g.__neonYSDKMarkReady();try{var platformPaused=!1;ysdk.on&&ysdk.on("game_api_pause",function(){platformPaused=!1;try{g.game&&g.game.mode==="playing"&&g.pauseGame&&(g.pauseGame(),platformPaused=!0)}catch{}try{g.NeonAudio&&g.NeonAudio.stopMusic&&g.NeonAudio.stopMusic()}catch{}}),ysdk.on&&ysdk.on("game_api_resume",function(){try{platformPaused&&g.game&&g.game.mode==="paused"&&g.pauseGame&&g.pauseGame(),platformPaused=!1,g.NeonAudio&&g.prefs&&g.prefs.sound&&g.NeonAudio.startMusic&&g.NeonAudio.startMusic()}catch{}})}catch{}}).catch(function(){}))},g.__neonYSDKMarkReady=function(){if(!(g.__neonYSDKReadyCalled||!g.__neonYSDK)){var loader=document.getElementById("loader");if(!(loader&&!loader.classList.contains("done"))){g.__neonYSDKReadyCalled=!0;try{g.__neonYSDK.features&&g.__neonYSDK.features.LoadingAPI&&g.__neonYSDK.features.LoadingAPI.ready&&g.__neonYSDK.features.LoadingAPI.ready()}catch{}}}}})(window);
+</script>
+<script async="" onerror="window.__neonYSDKFailed=1" onload="window.__neonYSDKInit()" src="/sdk.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\n
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\n
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  <script src="js/core.js"></script>
+  <script src="js/addons.js"></script>
+</body>
+</html>
